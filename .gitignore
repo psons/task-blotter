@@ -1,4 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# ignore the webstorm IDE stuff in this repo.   Can keep it in a separate repo
+# to pull and add by script.
+/.idea
 
 # dependencies
 /node_modules
