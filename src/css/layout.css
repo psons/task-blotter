@@ -1,0 +1,75 @@
+.app {
+    display: grid;
+    border: solid var(--endeavor_task_color) 1px;
+    padding: .4em;
+}
+
+.narrow_width_1_col {
+    max-width: 2.4375in; /* iphone X width. Need media break to satisfy design doc.*/
+    grid-template:
+            "util  util  util"
+            "title title title" 1.9em
+            "b1    b2    b3"    auto
+            "e1    e1    e1"    auto;
+    grid-gap: .2em;
+}
+
+.full_width_2_col {
+    max-width: 5in; /* need media break to satisfy design doc.*/
+    grid-template:
+            "util util util util util util title title title title title title title title title title title title " 2em
+            "util util util util util util b1    b1    b1    b1    b2    b2    b2    b2    b3    b3    b3    b3"    auto
+            "e1   e1   e1   e1   e1   e1   e1    e1    e1    e2    e2    e2    e2    e2    e2    e2    e2    e2"    auto;
+    grid-gap: .2em;
+}
+
+.full_width_3_col {
+    max-width: 5in; /* need media break to satisfy design doc.*/
+    grid-template:
+            "util util util title title title title title title" 2em
+            "util util util b1    b1    b2    b2    b3    b3"    auto
+            "util util util b1    b1    b2    b2    b3    b3"    auto
+            "e1   e1   e1   e2    e2    e2    e3    e3    e3"    auto;
+    grid-gap: .2em;
+}
+
+
+.util_area {
+    /*background-color: aqua;*/
+    grid-area: util;
+}
+
+.title_area {
+    /*background-color: blue;*/
+    grid-area: title;
+}
+
+.b1_area {
+    /*background-color: darkgray;*/
+    grid-area: b1;
+}
+
+.b2_area {
+    /*background-color: gray;*/
+    grid-area: b2;
+}
+
+.b3_area {
+    /*background-color: lightgray;*/
+    grid-area: b3;
+}
+
+.e1_area {
+     /*background-color: darkgray;*/
+     grid-area: e1;
+ }
+
+.e2_area {
+    /*background-color: gray;*/
+    grid-area: e2;
+}
+
+.e3_area {
+    /*background-color: lightgray;*/
+    grid-area: e3;
+}

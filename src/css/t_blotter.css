@@ -1,0 +1,402 @@
+:root {
+    font-size: .166in;   /*se the size of 1 rem about 16px*/
+    --endeavor_task_color: #162882;
+    --sprint_task_color: #8f97bd;
+    --passive_color: lightgray;
+    --prompt_background: #69618b;
+    --prompt_color: #bfcde2;
+    --font_fam_setting_display: sans-serif;
+    --font_fam_setting_edit: Georgia;
+    /*--input_font: */
+
+}
+
+
+.top_bar {
+    display: grid;
+    grid-template: auto auto / 1fr 1fr 1fr ;
+    /*grid-template:*/
+            /*"a b b" auto*/
+            /*". d d" auto;*/
+    grid-gap: 0;
+    background-color: #fff;
+    /*color: var(--endeavor_task_color);*/
+    /*grid-template-columns: 1fr 1fr;*/
+    /*grid-template-rows: 1fr 1fr;*/
+}
+
+.setting_label {
+    color: var(--endeavor_task_color);
+    font-size: 1rem;
+    justify-content: center;
+}
+
+.setting_value {
+
+}
+
+
+
+
+.statistics_panel {
+    grid-row-start: 1;
+    grid-column-start: 1;
+    grid-row-end: 3;
+    font-family: var(--font_fam_setting_display);
+    font-size: 1rem;
+    background-color: var(--passive_color);
+    /*border: solid var(--passive_color) .2em;*/
+    border: solid white .1rem;
+    /*border: solid red .1rem;*/
+    padding: 0;
+    /*border-radius: .4rem;*/
+    /*margin: 0 .1rem 0 .1rem;*/
+    margin: 0 ;
+}
+
+.label_val_pair {
+    margin: .1rem 0 .1rem 0;
+    /*border: solid brown .2rem;*/
+    display: block;
+    /*float: none;*/
+    font-family: sans-serif;
+    font-size: 1rem;
+}
+.setting_label {
+    display: inline-block;
+    /*float: right;*/
+    color: var(--endeavor_task_color);
+    border: solid var(--passive_color) .2rem;
+    /*background-color: white;*/
+}
+
+.setting_value {
+    display: inline-block;
+    /*float: right;*/
+    color: var(--endeavor_task_color);
+    border: solid var(--passive_color) .2rem;
+    /*background-color: white;*/
+}
+
+
+.screen_title {
+    padding: .2rem;
+    font-family: sans-serif;
+    color: var(--endeavor_task_color);
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    background-color: #fff;
+}
+
+/*.menu_bar {*/
+    /*!*grid-area: d;*!*/
+    /*display: flex;*/
+    /*flex-direction: row;*/
+    /*grid-row-start: 2;*/
+    /*grid-column-start: 2;*/
+    /*grid-column-end: 4;*/
+/*}*/
+
+.menu_choice {
+    /*flex-grow: 1;*/
+    font-family: sans-serif;
+    font-size: .8rem;
+    text-align: center;
+    color: var(--sprint_task_color);
+    background-color: var(--passive_color);
+    /*border: solid var(--passive_color) .2rem;*/
+    border: solid white .2rem;
+    padding: 0;
+    border-radius: .4rem;
+    margin: 0 ;
+    /*margin: 0 .1rem 0 .1rem;*/
+
+}
+
+.menu_choice:hover {
+    font-size: 1.2rem;
+    /*padding: 1rem;*/
+    /*height: 1.6rem;*/
+    /*vertical-align: center;*/
+    z-index: 4;
+}
+
+
+/*.menu_choice::before {*/
+    /*content: "-|";*/
+/*}*/
+
+/*.menu_choice::after {*/
+    /*content: "|-";*/
+/*}*/
+
+
+.task_grid {
+    display: flex;
+    flex-direction: row;
+}
+
+.endeavor_head_bar {
+    /*border: solid .15rem red  ;*/
+    height-min: 3rem;
+    overflow: hidden;
+    background-color: var(--endeavor_task_color);
+    color: white;
+    /*border: solid white .1rem;*/
+    margin: .2rem 0 .2rem 0;
+}
+
+.endeavor_head_bar:hover .endeavor_name{
+    padding: .5rem;
+    font-size: 1.1rem;
+    font-weight: normal;
+    height: auto;
+    overflow: visible;
+}
+
+.endeavor_head_bar_new {
+    border: solid .15rem red  ;
+    /*margin: auto;*/
+    height: 3rem;
+    padding: 0; /* 1rem top  manually vert center content */
+    color: var(--prompt_color);
+    /*border: solid white .1rem;*/
+    background-color: var(--prompt_color);
+    margin: .2rem 0 .2rem 0;
+}
+
+.endeavor_name_prompt {
+    /*height: 3rem;*/
+    background-color: var(--prompt_background);
+    border: solid .5rem var(--prompt_color);
+    /*overflow: hidden;*/
+    padding: .5rem;
+    font-family: sans-serif;
+    font-size: 1rem;
+    font-weight: lighter;
+    font-style: italic;
+}
+
+
+.endeavor_tasks_label {display: none }
+
+.endeavor_name {
+    height: 3rem;
+    padding: 0 .5rem 0 .5rem;
+    font-family: sans-serif;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+
+
+
+.endeavor_max_tasks_value {
+    float: right;
+    display: inline;
+    /*color: #162882;*/
+    color: var(--endeavor_task_color);
+    /*border: solid .12rem var(--endeavor_task_color);*/
+    background-color: white;
+    padding: .1rem;
+    font-size: 2rem;
+    font-family: var(--font_fam_setting_edit);
+
+}
+
+.debug_place_holder {
+    border: solid red 10px;
+    color: brown;
+    background-color: mediumslateblue;
+}
+
+.task_list {
+    padding: 0;
+    border: solid .2rem ;
+    border-radius: .4rem;
+    margin: .2rem .1rem .2rem .1rem;
+}
+
+.tasks_list_endeavor_in_sprint {
+    border-color: var(--endeavor_task_color);
+}
+
+.tasks_list_endeavor_out_of_sprint {
+    border-color: var(--passive_color);
+}
+
+/* Story or out of sprint separators on Plan screen*/
+.sep {
+    padding: 0;
+    display: inline-block;
+    background-color: lightgray;
+    font-size: 1rem;
+    overflow: hidden;
+    /*margin: 0 ;*/
+    margin: 1px 1.5rem 1px 1.5rem ;
+}
+
+/* Story styles as they appear on the Goal screen */
+.story_head_bar {
+    /*border: solid .15rem red  ;*/
+    height-min: 3rem;
+    font-family: sans-serif;
+    background-color: var(--passive_color);
+    color: var(--endeavor_task_color);
+    /*border: solid white .1rem;*/
+    margin: .2rem 0 .2rem 0;
+    overflow: hidden;
+    padding: .2rem;
+}
+
+
+.story_head_bar:hover .story_name {
+    padding: .5rem;
+    font-size: 1.1rem;
+    font-weight: normal;
+    height: auto;
+    overflow: visible;
+}
+
+.story_name {
+    height: 3rem;
+    overflow: hidden;
+    padding: 0 .5rem 0 .5rem;
+    font-family: sans-serif;
+    font-size: 1rem;
+    font-weight: normal;
+}
+
+
+
+.story_max_tasks_value {
+    float: right;
+    display: inline;
+    /*color: #162882;*/
+    color: var(--endeavor_task_color);
+    /*border: solid .12rem var(--passive_color);*/
+    background-color: white;
+    padding: .1rem;
+    font-size: 2rem;
+    font-family: var(--font_fam_setting_edit);
+}
+
+
+
+.show_story {
+    padding: 0;
+    display: inline-block;
+    background-color: lightgray;
+    font-size: 1rem;
+    /*margin: 0 ;*/
+    margin: 1px .2rem 1px .2rem ;
+}
+
+.sep_story {
+    height: 3px;
+    color: var(--passive_color);
+}
+
+.story {
+    height: 3rem;
+    color: var(--endeavor_task_color);
+}
+
+
+/*.sep_story>p {*/
+/*display: none;*/
+/*}*/
+
+.sep_sprint_end {
+    height: 4px;
+    color: var(--passive_color);
+    border: solid lightslategrey 2px;
+    border-radius: 3px;
+}
+
+
+.sep_story:hover {
+    border: solid var(--endeavor_task_color) 2px;
+    background-color: white;
+    color: #162882;
+    font-size: 1.1rem;
+    height: auto;
+    margin: 0  ;
+    padding: 0 .5rem 0 .5rem;
+ }
+
+.sep_sprint_end:hover {
+    border: solid var(--endeavor_task_color) 2px;
+    background-color: white;
+    color: var(--endeavor_task_color);
+    font-size: 1.1rem;
+    height: auto;
+    margin: 0  ;
+    padding: 0 .5rem 0 .5rem;
+}
+
+
+.task {
+    display: block;
+    margin: .1rem .2rem .1rem .2rem;
+}
+
+.first_task_out {
+    color: var(--sprint_task_color);
+}
+
+.additional_task_out {
+    color: var(--passive_color);
+}
+
+.task_status {
+    display: inline;
+}
+
+.task_status::after {
+    content: ' - ';
+}
+
+.task_title {
+    display: inline;
+}
+
+.task_detail {
+    display: inline-block;
+    /*float: right;*/
+    /*position: relative;*/
+    /*right: 1rem;*/
+
+    /*https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius*/
+    border-radius: 30% / 40%;
+
+    width: .9rem;
+    Height: .7rem;
+    overflow: hidden;
+    background-color: var(--sprint_task_color);
+    color: var(--sprint_task_color);
+    margin: 0;
+}
+
+.task_detail:active {
+    width: 100%;
+    color: var(--endeavor_task_color);
+    border-radius: 0;
+    height: auto;
+    /*margin: 0 2rem 0 2rem;*/
+    background-color: white;
+}
+
+.show_endeavor_editor {
+    background-color: var(--passive_color);
+    color: var(--sprint_task_color);
+    border: solid white .1rem;
+    margin: 0;
+    overflow: hidden;
+    padding: .4rem;
+    font-family: sans-serif;
+    font-size: 1rem;
+    text-align: center;
+}
+
