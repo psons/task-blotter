@@ -1,4 +1,8 @@
 
+
+// These are types representing the actual user data
+// They may be wrapped in other types ending in CT
+// representing the UI Component meta-data needs.
 interface TaskT  {
     status: string;
     title: string;

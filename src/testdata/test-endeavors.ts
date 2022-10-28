@@ -14,32 +14,51 @@ export const endeavors =
                     {
                         "status": "in_progress",
                         "title": "live in the moment",
-                        "detail": "",
+                        "detail": "Do the right thing for he moment now!",
                         "tid": "c21f969b5f.c9ec52c702.0eeac89fb5"
                     },
                     {
                         "status": "do",
                         "title": "think about the future",
-                        "detail": "",
+                        "detail": "We always want a plan for our ideals, even if the plan has to change.",
                         "tid": "c21f969b5f.c9ec52c702.d06267f230"
                     },
                     {
                         "status": "do",
                         "title": "another task",
-                        "detail": "",
+                        "detail": "There is always more work to do.",
                         "tid": "c21f969b5f.c9ec52c702.e34beb1074"
                     },
                     {
                         "status": "do",
                         "title": "yet another task",
-                        "detail": "",
+                        "detail": "We need to play some times.",
                         "tid": "c21f969b5f.c9ec52c702.5103dd140c"
                     },
                     {
                         "status": "do",
-                        "title": "yet another nother task",
-                        "detail": "",
+                        "title": "yet another another task",
+                        "detail": "Time to rest.   I'm exhausted.",
                         "tid": "c21f969b5f.c9ec52c702.92292d0f87"
+                    }
+                ]
+            },
+            {
+                "maxTasks": 1,
+                "name": "A second story",
+                "sid": "c21f969b5f.c9ec52d813",
+                "taskList": [
+                    {
+                        "status": "do",
+                        "title": "Deja Vu",
+                        "detail": "Same right things again!",
+                        "tid": "c21f969b5f.c9ec52d813.9ffbd900c6"
+                    },
+                    {
+                        "status": "do",
+                        "title": "Do over another another task",
+                        "detail": "Time to sleep.  I'm faded.",
+                        "tid": "c21f969b5f.c9ec52d813.03303ea097"
                     }
                 ]
             }
@@ -96,7 +115,7 @@ export const endeavors =
                         {
                             "status": "in_progress",
                             "title": "Rescue Princess",
-                            "detail": "",
+                            "detail": "She is imprisoned in the tower.",
                             "tid": "c32f070b6f.c0ec63c8ed.0eeac89fbf"
                         },
                         {
