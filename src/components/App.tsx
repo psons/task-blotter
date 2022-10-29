@@ -1,26 +1,46 @@
 import React from 'react';
 import '../css/t_blotter.css';
+import '../css/layout.css';
 import {endeavors} from "../testdata/test-endeavors";
-import Story from "./Story";
+import StatPanel from "./StatPanel";
 import Endeavor from "./Endeavor";
+import {StatsT} from "../types/endeavors";
 // Comment
 
-const testEndeavor = endeavors[0]
-const testStory = endeavors[0].story_list[0]; //.story_list[1]
-
 function App() {
-    console.log(`testStory name is: ${testStory.name}`);
-  return (
-    <div className="app full_width_3_col">
-      <header className="App-header">
-          This is the Top Level Task Blotter App in
-            <code> src/components/App.tsx</code>.
-      </header>
-    <Endeavor _id={testEndeavor._id}
-              name={testEndeavor.name}
-              maxStories={testEndeavor.maxStories}
-              eid={testEndeavor.eid}
-              story_list={testEndeavor.story_list}/>
+    console.log("Top Level Task Blotter App:src/components/App.tsx.")
+    var screenLayout = "full_width_3_col"; // grid container
+    let endeavorGridAreas = ["e1_area", "e2_area", "e3_area"]
+    let renderEndeavors = [];
+    let renderCount = 0
+    let endeavorColumns = 3;
+    while ((renderCount < endeavorColumns) && (renderCount < endeavors.length)){
+        renderEndeavors.push(<Endeavor
+            endeavor_t={endeavors[renderCount]}
+            grid_area={endeavorGridAreas[renderCount]}
+            key={endeavors[renderCount].eid}
+        />);
+        renderCount++;
+    }
+    let ec = endeavors.length;
+
+    // todo this will become application state, and tasks becomes user modifiable
+    let stats_t: StatsT = {task_count: 6, endeavor_count: ec}
+    return (
+    <div className={"app " + screenLayout}>
+        <div className="screen_title title_area">Plan Sprint</div>
+        <StatPanel stats_t={stats_t}  />
+        <div className="b3_area">
+            <div className="menu_choice">Goals</div>
+        </div>
+        <div className="b2_area">
+            <div className="menu_choice">Plan</div>
+        </div>
+        <div className="b1_area">
+            <div className="menu_choice">Todo</div>
+        </div>
+
+        { renderEndeavors }
     </div>
   );
 }

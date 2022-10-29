@@ -145,5 +145,90 @@ export const endeavors =
                     ]
                 }
             ]
+        },
+        {
+            "_id": "c32f070aaa",
+            "name": "Find Grail",
+            "maxStories": 1,
+            "eid": "c32f070aaa",
+            "story_list": [
+                {
+                    "maxTasks": 3,
+                    "name": "Arthur story",
+                    "sid": "c32f070aaa.c0ec63cbbb",
+                    "taskList": [
+                        {
+                            "status": "do",
+                            "title": "Visit French",
+                            "detail": "",
+                            "tid": "c32f070aaa.c0ec63cbbb.5103dd140d"
+                        },
+                        {
+                            "status": "in_progress",
+                            "title": "Argue with peasants",
+                            "detail": "",
+                            "tid": "c32f070aaa.c0ec63cbbb.0eeac89fa5"
+                        },
+                        {
+                            "status": "do",
+                            "title": "Convict witch",
+                            "detail": "",
+                            "tid": "c32f070aaa.c0ec63cbbb.d06267f23b"
+                        },
+                        {
+                            "status": "do",
+                            "title": "Fight Knight",
+                            "detail": "",
+                            "tid": "c32f070aaa.c0ec63cbbb.e34beb10c4"
+                        }
+                    ]
+                },
+                {
+                    "maxTasks": 3,
+                    "name": "Galahad story",
+                    "sid": "c32f070aaa.c0ec63cccc",
+                    "taskList": [
+                        {
+                            "status": "in_progress",
+                            "title": "Punish Zoot",
+                            "detail": "She is imprisoned in the tower.",
+                            "tid": "c32f070aaa.c0ec63cccc.0eeac89fbf"
+                        },
+                        {
+                            "status": "do",
+                            "title": "Pick up Shrubbery",
+                            "detail": "Theres a guy, Rodger who arranges and designs them",
+                            "tid": "c32f070aaa.c0ec63cccc.d06267f23a"
+                        },
+                        {
+                            "status": "do",
+                            "title": "Return to 3 headed guy with shrubberies",
+                            "detail": "",
+                            "tid": "c32f070aaa.c0ec63cccc.e34beb10b4"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "_id": "c32f090abc",
+            "name": "Win Championship",
+            "maxStories": 1,
+            "eid": "c32f090abc",
+            "story_list": [
+                {
+                    "maxTasks": 3,
+                    "name": "Enter Tourney",
+                    "sid": "c32f090abc.c0ec63cdef",
+                    "taskList": [
+                        {
+                            "status": "do",
+                            "title": "Win 6 games in a row.",
+                            "detail": "Defeat everybody in field of 66 teams",
+                            "tid": "c32f090abc.c0ec63cdef.5103dd1123"
+                        }
+                    ]
+                }
+            ]
         }
-]
+    ]

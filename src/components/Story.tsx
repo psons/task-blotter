@@ -4,7 +4,8 @@ import Task from "./Task";
 
 interface StoryCT {
     story_t: StoryT;
-    // going to need to add some data here to tell it how to style its tasks.
+    // going to need to add some data here to tell it how to conditionally
+    // style its tasks.
 }
 
 const Story = ( {story_t}: StoryCT ) =>

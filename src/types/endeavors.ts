@@ -3,6 +3,12 @@
 // These are types representing the actual user data
 // They may be wrapped in other types ending in CT
 // representing the UI Component meta-data needs.
+
+interface StatsT{
+    task_count: number;
+    endeavor_count: number;
+}
+
 interface TaskT  {
     status: string;
     title: string;
@@ -25,4 +31,4 @@ type EndeavorT = {
     story_list: StoryT[]
 }
 
-export type { TaskT, StoryT, EndeavorT}
+export type { StatsT, TaskT, StoryT, EndeavorT}
