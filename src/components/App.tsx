@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import '../css/t_blotter.css';
 import '../css/layout.css';
+import { TbProvider} from "./context/TbContext";
 import {endeavors} from "../testdata/test-endeavors";
+import {user_domain} from "../testdata/test-user-domain";
 import StatPanel from "./StatPanel";
 import Endeavor from "./Endeavor";
 import {StatsT} from "../types/endeavors";
@@ -9,11 +11,12 @@ import {StatsT} from "../types/endeavors";
 
 function App() {
     console.log("Top Level Task Blotter App:src/components/App.tsx.")
-    var screenLayout = "full_width_3_col"; // grid container
+    let screenLayout = "full_width_3_col"; // grid container
     let endeavorGridAreas = ["e1_area", "e2_area", "e3_area"]
     let renderEndeavors = [];
     let renderCount = 0
     let endeavorColumns = 3;
+
     while ((renderCount < endeavorColumns) && (renderCount < endeavors.length)){
         renderEndeavors.push(<Endeavor
             endeavor_t={endeavors[renderCount]}
@@ -25,23 +28,24 @@ function App() {
     let ec = endeavors.length;
 
     // todo this will become application state, and tasks becomes user modifiable
-    let stats_t: StatsT = {task_count: 6, endeavor_count: ec}
+    let stats_t: StatsT = {task_count: user_domain.sprint_task_count, endeavor_count: ec}
     return (
-    <div className={"app " + screenLayout}>
-        <div className="screen_title title_area">Plan Sprint</div>
-        <StatPanel stats_t={stats_t}  />
-        <div className="b3_area">
-            <div className="menu_choice">Goals</div>
-        </div>
-        <div className="b2_area">
-            <div className="menu_choice">Plan</div>
-        </div>
-        <div className="b1_area">
-            <div className="menu_choice">Todo</div>
-        </div>
-
-        { renderEndeavors }
-    </div>
+        <TbProvider >
+            <div className={"app " + screenLayout}>
+                <div className="screen_title title_area">Plan Sprint</div>
+                <StatPanel stats_t={stats_t}  />
+                <div className="b3_area">
+                    <div className="menu_choice">Goals</div>
+                </div>
+                <div className="b2_area">
+                    <div className="menu_choice">Plan</div>
+                </div>
+                <div className="b1_area">
+                    <div className="menu_choice">Todo</div>
+                </div>
+                { renderEndeavors }
+            </div>
+        </TbProvider>
   );
 }
 

@@ -21,11 +21,20 @@ const Endeavor = ({endeavor_t, grid_area}: EndeavorCT) => {
             </div>
             <div className="task_list tasks_list_endeavor_in_sprint">
                 {story_list.map(story => {
-                    console.log(`Endeavor rendering story: ${story.name}`)
+                    console.log(`Endeavor in_sprint story: ${story.name}`)
                     return (
-                        <Story story_t={story} key={story.sid}></Story>
+                        <Story story_t={story} is_top={true} key={story.sid}></Story>
                     )
                 }
+                )}
+            </div>
+            <div className="task_list tasks_list_endeavor_out_of_sprint">
+                {story_list.map(story => {
+                        console.log(`Endeavor out_of_sprint story: ${story.name}`)
+                        return (
+                            <Story story_t={story} is_top={false} key={story.sid}></Story>
+                        )
+                    }
                 )}
             </div>
             <div className="endeavor_footer">
