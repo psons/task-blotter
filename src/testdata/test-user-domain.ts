@@ -1,4 +1,4 @@
 export const user_domain = {
     name: "Daydreaming time",
-    sprint_task_count: 6
+    sprint_max_tasks: 6
 }

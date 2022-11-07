@@ -1,4 +1,6 @@
-export const endeavors =
+import {EndeavorT} from "../types/endeavors";
+
+export const endeavors: EndeavorT[] =
     [
         {
         "_id": "c21f969b5f",

@@ -4,13 +4,16 @@ import './index.css'; /*from create-react-app*/
 import './css/resetpgs.css'
 import App from './components/App';
 import reportWebVitals from './reportWebVitals';
+import {TbProvider} from "./components/context/TbContext";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+      <TbProvider>
+        <App />
+      </TbProvider>
   </React.StrictMode>
 );
 

@@ -26,7 +26,7 @@ const Story = ( {story_t, is_top}: StoryCT ) =>
         // <div class="sep sep_sprint_end">Tasks after this are beyond MaxTasks:</div>
     } else {
         // bottom of taskList: not in the sprint
-        taskListSlice = taskList.slice(maxTasks+1);
+        taskListSlice = taskList.slice(maxTasks);
     }
     console.log(`taskListSlice map .title-: ${taskListSlice.map( task => task.title)}`)
     // suppress display of separator for empty task lists.

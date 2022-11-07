@@ -230,6 +230,7 @@
 
 /* Story or out of sprint separators on Plan screen*/
 .sep {
+    font-family: var(--font_fam_setting_display);
     padding: 0;
     display: inline-block;
     background-color: lightgray;
@@ -350,6 +351,10 @@
 
 .additional_task_out {
     color: var(--passive_color);
+}
+
+.task {
+    font-family: var(--font_fam_setting_display);
 }
 
 .task_status {

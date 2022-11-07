@@ -8,16 +8,26 @@ interface ProviderStateI  {
     sprint_tasks_added: number;
 }
 
-interface ContextI extends ProviderStateI {
+export interface ContextI extends ProviderStateI {
     actions: {
-        incrementSprintTasksAdded: () => void;
+        placeholder: number
+        // incrementSprintTasksAdded: () => void;
     }
 
 }
 
 // interface ProviderPropsI {}
+const defaultContext: ContextI =   {
+    sprint_max_tasks: 2,
+    sprint_tasks_added: 0,
+    actions: {
+        placeholder: 0
+    }
 
-export const TbContext = React.createContext<ContextI>({}as ContextI);
+}
+
+
+export const TbContext = React.createContext<ContextI>(defaultContext);
 
 //export const TbProvider = TbContext.Provider;
 
@@ -49,7 +59,8 @@ export class TbProvider extends Component<any, ProviderStateI>{
                 sprint_max_tasks: this.state.sprint_max_tasks,
                 sprint_tasks_added: this.state.sprint_tasks_added,
                 actions: {
-                    incrementSprintTasksAdded: this.handleIncrementSprintTasks
+                    placeholder: 0
+                    // incrementSprintTasksAdded: this.handleIncrementSprintTasks
                 }
         }}>
                 {this.props.children}
