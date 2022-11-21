@@ -10,24 +10,12 @@ interface ProviderStateI  {
 
 export interface ContextI extends ProviderStateI {
     actions: {
-        placeholder: number
+        changeSprintMax: (delta:number) => void
         // incrementSprintTasksAdded: () => void;
     }
 
 }
 
-// interface ProviderPropsI {}
-const defaultContext: ContextI =   {
-    sprint_max_tasks: 2,
-    sprint_tasks_added: 0,
-    actions: {
-        placeholder: 0
-    }
-
-}
-
-
-export const TbContext = React.createContext<ContextI>(defaultContext);
 
 //export const TbProvider = TbContext.Provider;
 
@@ -42,16 +30,22 @@ export class TbProvider extends Component<any, ProviderStateI>{
         }
     }
 
+    // state =  {
+    //         sprint_max_tasks: 6,
+    //         sprint_tasks_added: 0
+    //     }
 
-    // I think the return type is void.  has side effect of updating state.
-    handleIncrementSprintTasks = () => {
-        this.setState( prevState => {
-            return ({
-                sprint_max_tasks: 6,
-                sprint_tasks_added: prevState.sprint_tasks_added + 1
-            });
-        });
+
+    handleChangeSprintMaxTasks = (delta: number) => {
+        console.log("Got a click to change SprintMaxTask", delta);
+        this.setState(
+            prevState  => (
+                {sprint_max_tasks: prevState.sprint_max_tasks + delta}
+            )
+        )
     }
+
+
 
     render () {
         return (
@@ -59,7 +53,7 @@ export class TbProvider extends Component<any, ProviderStateI>{
                 sprint_max_tasks: this.state.sprint_max_tasks,
                 sprint_tasks_added: this.state.sprint_tasks_added,
                 actions: {
-                    placeholder: 0
+                    changeSprintMax: this.handleChangeSprintMaxTasks
                     // incrementSprintTasksAdded: this.handleIncrementSprintTasks
                 }
         }}>
@@ -69,6 +63,21 @@ export class TbProvider extends Component<any, ProviderStateI>{
     }
 
 }
+
+
+// interface ProviderPropsI {}
+const defaultContext: ContextI =   {
+    sprint_max_tasks: 2,
+    sprint_tasks_added: 0,
+    actions: {
+        changeSprintMax: (delta: number) => {
+            console.log(
+                "actions.changeSprintMax  is using a default, not an implementation in TbContext:" +
+                `${delta}`)}
+    }
+}
+
+export const TbContext = React.createContext<ContextI>(defaultContext);
 
 export const TbConsumer = TbContext.Consumer;
 
