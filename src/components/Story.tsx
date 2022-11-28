@@ -1,7 +1,9 @@
 import React from "react"
 import {StoryT, TaskT} from "../types/endeavors";
 import Task, {TaskCT} from "./Task";
+import {TbContext} from "./context/TbContext";
 import {endeavors} from "../testdata/test-endeavors";
+import {ContextI} from "./context/TbContext";
 
 // Story Component Type
 interface StoryCT {
@@ -13,9 +15,10 @@ interface StoryCT {
 
 class Story extends React.Component<StoryCT, any> {
 
+
     getCandidateCount() {
         /*
-        Find the number tasks this story offers as candidates for sprint tasks as
+        Find the CandidateCount, candidates for sprint tasks: as
         the least of length : storyMaxTasks
          */
         let length = this.props.story_t.taskList.length;
@@ -23,8 +26,14 @@ class Story extends React.Component<StoryCT, any> {
         return length < storyMaxTasks ? length : storyMaxTasks;
     }
 
+
     render() {
+        // looks like we might have access to this.context.actions.updateCapacity()
         const {maxTasks, name, taskList} = this.props.story_t;
+        // // todo How do I declare the context to be ContextI ?
+        // @ts-ignore
+        // let sprintContribution = this.context.actions.registerSprintContribution(this.getCandidateCount());
+        console.log(`Story.render() :: name: ${name}, maxTasks: ${maxTasks}`)
         let taskListSlice: TaskT[];
         let is_sprint_candidate: boolean = this.props.is_top; // only top tasks in story can get into sprint
         if (this.props.is_top) {
@@ -42,27 +51,27 @@ class Story extends React.Component<StoryCT, any> {
         let classNames="sep sep_story "
         if (taskListSlice.length < 1){
             classNames= "not_displayed";
-    }
+        }
 
-    // Leaving renderTasks code commented, as example of the type that works
-    // for the expanded array expression below in JSX.
-    // let renderTasks: JSX.Element[];
-    // renderTasks = [];
-    // let renderCount = 0;
-    return (
-        <div>
-            <div className={classNames}> {name} - {maxTasks}
+        // Leaving renderTasks code commented, as example of the type that works
+        // for the expanded array expression below in JSX.
+        // let renderTasks: JSX.Element[];
+        // renderTasks = [];
+        // let renderCount = 0;
+        return (
+            <div>
+                <div className={classNames}> {name} - {maxTasks}
+                </div>
+                {/*{ renderTasks }*/}
+                {taskListSlice.map(task =>
+                    <Task key={task.tid} task_t={task} is_sprint_candidate={is_sprint_candidate}/>)
+                }
             </div>
-            {/*{ renderTasks }*/}
-            {taskListSlice.map(task =>
-                <Task key={task.tid} task_t={task} is_sprint_candidate={is_sprint_candidate}/>)
-            }
-        </div>
-    );
-}
+        );
+    }
 }
 
 // const Story = ( {story_t, is_top}: StoryCT ) =>
-
+Story.contextType = TbContext;
 
 export default Story;
