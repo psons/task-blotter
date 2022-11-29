@@ -45,6 +45,7 @@ class App extends React.Component<any, any>{
                                 while ((renderCount < endeavorColumns) && (renderCount < context.endeavors.length)){
                                     renderEndeavors.push(<Endeavor
                                         endeavor_t={context.endeavors[renderCount]}
+                                        endeavor_meta={context.endeavor_meta[renderCount]}
                                         grid_area={endeavorGridAreas[renderCount]}
                                         key={context.endeavors[renderCount].eid}
                                     />);

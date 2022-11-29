@@ -23,14 +23,14 @@ enum TaskSprintDispositionT {
     storyOverFlow
 }
 
-interface TaskSprintT {
+interface TaskSprintMetaT {
     disposition: TaskSprintDispositionT;
 }
 
 
 // metadata for display about how a StoryT contributes tasks to a sprint.
-interface StorySprintT {
-    sid: string;                    // The ID if the StoryT to which this StorySprintT applies.
+interface StorySprintMetaT {
+    sid: string;                    // The ID if the StoryT to which this StorySprintMetaT applies.
 
     num_tasks_contributed: number;  // the number of TaskT at the top of StoryT.TaskList that
                                     // run time determines are included in the sprint.
@@ -42,9 +42,9 @@ interface StorySprintT {
 }
 
 // metadata for display about how an EndeavorT contributes stories to a sprint.
-interface EndeavorSprintT {
-    eid: string;                    // The ID of the EndeavorT to which this EndeavorSprintT applies
-    story_display: StorySprintT[];  // The list of metadata for stories in this endeavor.
+interface EndeavorSprintMetaT {
+    eid: string;                    // The ID of the EndeavorT to which this EndeavorSprintMetaT applies
+    story_meta_list: StorySprintMetaT[];  // The list of metadata for stories in this endeavor.
 }
 
 
@@ -80,5 +80,5 @@ type EndeavorT = {
 }
 
 export type { TaskSprintDispositionT,
-    TaskSprintT, StorySprintT, EndeavorSprintT,
+    TaskSprintMetaT, StorySprintMetaT, EndeavorSprintMetaT,
     StatsT, TaskT, StoryT, EndeavorT};
