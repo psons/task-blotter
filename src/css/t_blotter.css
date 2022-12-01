@@ -29,7 +29,7 @@
 
 .setting_label {
     color: var(--endeavor_task_color);
-    font-size: 1rem;
+    font-size: .8rem;
     justify-content: center;
 }
 
@@ -197,6 +197,7 @@
 .endeavor_max_tasks_value {
     float: right;
     display: inline;
+    display: inline;
     /*color: #162882;*/
     color: var(--endeavor_task_color);
     /*border: solid .12rem var(--endeavor_task_color);*/
@@ -229,16 +230,6 @@
 }
 
 /* Story or out of sprint separators on Plan screen*/
-.sep {
-    font-family: var(--font_fam_setting_display);
-    padding: 0;
-    display: inline-block;
-    background-color: lightgray;
-    font-size: 1rem;
-    overflow: hidden;
-    /*margin: 0 ;*/
-    margin: 1px 1.5rem 1px 1.5rem ;
-}
 
 /* Story styles as they appear on the Goal screen */
 .story_head_bar {
@@ -296,26 +287,33 @@
     margin: 1px .2rem 1px .2rem ;
 }
 
+.sep {
+    font-family: var(--font_fam_setting_display);
+    padding: 0;
+    display: inline-block;
+    background-color: lightgray;
+    font-size: 1rem;
+    overflow: hidden;
+    /*margin: 0 ;*/
+    margin: 1px 1.5rem 1px 1.5rem ;
+}
+
 .sep_story {
-    height: 3px;
+    height: 4px;
     color: var(--passive_color);
 }
+.sep_sprint_end {
+    border: solid lightslategrey 2px;
+    height: 4px;
+    color: var(--passive_color);
+    border-radius: 3px;
+}
+
+
 
 .story {
     height: 3rem;
     color: var(--endeavor_task_color);
-}
-
-
-/*.sep_story>p {*/
-/*display: none;*/
-/*}*/
-
-.sep_sprint_end {
-    height: 4px;
-    color: var(--passive_color);
-    border: solid lightslategrey 2px;
-    border-radius: 3px;
 }
 
 
@@ -329,12 +327,13 @@
     padding: 0 .5rem 0 .5rem;
  }
 
+
 .sep_sprint_end:hover {
     border: solid var(--endeavor_task_color) 2px;
     background-color: white;
-    color: var(--endeavor_task_color);
     font-size: 1.1rem;
     height: auto;
+    color: var(--endeavor_task_color);
     margin: 0  ;
     padding: 0 .5rem 0 .5rem;
 }

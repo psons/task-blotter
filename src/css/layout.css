@@ -25,13 +25,16 @@
 
 .full_width_3_col {
     max-width: 5in; /* need media break to satisfy design doc.*/
-    grid-template:
-            "util util util title title title title title title" 2em
-            "util util util b1    b1    b2    b2    b3    b3"    auto
-            "util util util b1    b1    b2    b2    b3    b3"    auto
-            "e1   e1   e1   e2    e2    e2    e3    e3    e3"    auto;
+    grid-template-areas:
+            "util util util title title title title title title"
+            "util util util b1    b1    b2    b2    b3    b3"
+            "util util util b1    b1    b2    b2    b3    b3"
+            "e1   e1   e1   e2    e2    e2    e3    e3    e3"   ;
+    grid-template-columns: repeat(9, minmax(0, 1fr)); /* To prevent large content from changing column widths.
+                                                         https://stackoverflow.com/questions/47601564*/
     grid-gap: .2em;
 }
+
 
 
 .util_area {
