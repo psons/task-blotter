@@ -5,6 +5,7 @@
     --passive_color: lightgray;
     --prompt_background: #69618b;
     --prompt_color: #bfcde2;
+    --sep_h_margin: 1.5rem;
     --font_fam_setting_display: sans-serif;
     --font_fam_setting_edit: Georgia;
     /*--input_font: */
@@ -277,7 +278,6 @@
 }
 
 
-
 .show_story {
     padding: 0;
     display: inline-block;
@@ -287,7 +287,15 @@
     margin: 1px .2rem 1px .2rem ;
 }
 
+.story {
+    height: 3rem;
+    color: var(--endeavor_task_color);
+}
+
+
 .sep {
+    box-sizing: content-box;
+    width: calc(100% - 3rem);  /* 100% - 2 * margin */
     font-family: var(--font_fam_setting_display);
     padding: 0;
     display: inline-block;
@@ -295,7 +303,7 @@
     font-size: 1rem;
     overflow: hidden;
     /*margin: 0 ;*/
-    margin: 1px 1.5rem 1px 1.5rem ;
+    margin: 1px var(--sep_h_margin) 1px var(--sep_h_margin) ;
 }
 
 .sep_story {
@@ -310,20 +318,15 @@
 }
 
 
-
-.story {
-    height: 3rem;
-    color: var(--endeavor_task_color);
-}
-
-
 .sep_story:hover {
+    box-sizing: content-box;
     border: solid var(--endeavor_task_color) 2px;
+    margin: 2px 2px 2px 2px;
+    width: calc(100% - 8px - 1rem) ;  /* 100% content box - 2 * (border + 2px)  - 2 * padding  */
     background-color: white;
     color: #162882;
     font-size: 1.1rem;
     height: auto;
-    margin: 0  ;
     padding: 0 .5rem 0 .5rem;
  }
 

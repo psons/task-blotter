@@ -2,11 +2,15 @@ import React from "react"
 import {StorySprintMetaT, StoryT, TaskT} from "../types/endeavors";
 import Task, {TaskCT} from "./Task";
 import {TbContext} from "./context/TbContext";
+import {TbConsumer} from "./context/TbContext";
 import {endeavors} from "../testdata/test-endeavors";
 import {ContextI} from "./context/TbContext";
+import {ReactComponent} from "*.svg";
 
 // Story Component Type
 interface StoryCT {
+    eidx: number;
+    sidx: number;
     story_t: StoryT;  // Story Data Type
     story_meta: StorySprintMetaT;
     is_top: boolean;
@@ -16,28 +20,36 @@ interface StoryCT {
 
 class Story extends React.Component<StoryCT, any> {
 
+    // type checking error note relating to ts-ignore in render.:
+    // https://github.com/microsoft/TypeScript/issues/49357
+    // https://stackoverflow.com/questions/53575461/react-typescript-context-in-react-component-class
 
-    // getCandidateCount() {
-    //     /*
-    //     Find the CandidateCount, candidates for sprint tasks: as
-    //     the least of length : storyMaxTasks
-    //      */
-    //     let length = this.props.story_t.taskList.length;
-    //     let storyMaxTasks = this.props.story_t.maxTasks;
-    //     return length < storyMaxTasks ? length : storyMaxTasks;
-    // }
+    static contextType = TbContext;
+    context!: React.ContextType<typeof TbContext>;
+
 
     buildRenderTasks( some_tasks: TaskT[], is_sp_cand: boolean, sprint_end: boolean, num_t_contrib: number) {
 
         let _renderTasks: JSX.Element[] = [];
+        let end_sep_rendered: boolean = false;
+        let end_sep: JSX.Element = (<div key={0} className="sep sep_sprint_end">Tasks after this are beyond MaxTasks:</div>);
         for ( let tIdx=0 ; tIdx < some_tasks.length ; tIdx++) {
-            console.log(`buildRenderTasks(-) task: ${some_tasks[tIdx].title}`)
-            if (sprint_end && tIdx === num_t_contrib && is_sp_cand) {
-                _renderTasks.push(<div key={0} className="sep sep_sprint_end">Tasks after this are beyond MaxTasks:</div>)
+            // console.log(`buildRenderTasks(-) task: ${some_tasks[tIdx].title}`)
+            if (   sprint_end  // first iteration beyond sprint capacity
+                && tIdx === num_t_contrib
+                && is_sp_cand
+            ) {
+                _renderTasks.push(end_sep);
+                is_sp_cand = false;
+            } else if ( tIdx >= num_t_contrib) {
+                is_sp_cand = false;  // beyond sprint capacity
             }
             _renderTasks.push(
                 <Task key={some_tasks[tIdx].tid} task_t={some_tasks[tIdx]} is_sprint_candidate={is_sp_cand}/>
             );
+            // if (sprint_end && ! end_sep_rendered) {
+            //     _renderTasks.push(end_sep);
+            // }
         }
         return _renderTasks;
     }
@@ -59,7 +71,7 @@ class Story extends React.Component<StoryCT, any> {
             // bottom of taskList: not in the sprint
             taskListSlice = taskList.slice(maxTasks);
         }
-        console.log(`taskListSlice map .title-: ${taskListSlice.map( task => task.title)}`)
+        // console.log(`taskListSlice map .title-: ${taskListSlice.map( task => task.title)}`)
         // suppress display of separator for empty task lists.
         let classNames="sep sep_story "
         if (taskListSlice.length < 1){
@@ -69,23 +81,30 @@ class Story extends React.Component<StoryCT, any> {
         // Leaving renderTasks code commented, as example of the type that works
         // for the expanded array expression below in JSX.
         // let renderTasks: JSX.Element[];
-        // renderTasks = [];
-        // let renderCount = 0;
         return (
-            <div>
-                <div className={classNames}> {name} - {maxTasks}
+                <div>
+                    <div className={classNames}> {name} -
+                        {/*<TbConsumer>*/}
+                            {/*<React.Fragment>*/}
+                            {/*    see type checking issue note above }*/}
+                                <button className="" onClick={() => this.context.actions.changeStoryMax(
+                                    this.props.eidx,
+                                    this.props.sidx,
+                                    -1)}> - </button>
+
+                                <span className="setting_value">{maxTasks}</span>
+                                <button className="" onClick={() => this.context.actions.changeStoryMax(
+                                    this.props.eidx,
+                                    this.props.sidx
+                                    , 1)}> + </button>
+                            {/*</React.Fragment>*/}
+                        {/*</TbConsumer>*/}
+                        </div>
+                    {this.buildRenderTasks( taskListSlice, is_sprint_candidate, sprint_end, num_tasks_contributed)}
                 </div>
-                {/*{ renderTasks }*/}
-                {this.buildRenderTasks( taskListSlice, is_sprint_candidate, sprint_end, num_tasks_contributed)}
-                {/*{taskListSlice.map(task =>*/}
-                {/*    <Task key={task.tid} task_t={task} is_sprint_candidate={is_sprint_candidate}/>)*/}
-                {/*}*/}
-            </div>
+
         );
     }
 }
-
-// const Story = ( {story_t, is_top}: StoryCT ) =>
-Story.contextType = TbContext;
 
 export default Story;

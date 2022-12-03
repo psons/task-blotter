@@ -16,6 +16,7 @@ interface ProviderStateI  {
 export interface ContextI extends ProviderStateI {
     actions: {
         changeSprintMax: (delta: number) => void;
+        changeStoryMax: (eidx: number, sidx: number, delta: number) => void;
         // registerSprintContribution: (storyTasks: number) => number ;//updateCapacity
     }
 
@@ -72,14 +73,14 @@ export class TbProvider extends Component<any, ProviderStateI>{
         let _sprintCapacityLeft = _sprint_max_tasks;
         let _contribution: number;
         for ( let eIdx=0 ; eIdx < endeavors.length ; eIdx++ ) {
-            console.log(`buildEndeavorMeta(-): endeavor[${eIdx}].name: ${_endeavors[eIdx].name} endeavor[${eIdx}].eid: ${_endeavors[eIdx].eid}`);
+            // console.log(`buildEndeavorMeta(-): endeavor[${eIdx}].name: ${_endeavors[eIdx].name} endeavor[${eIdx}].eid: ${_endeavors[eIdx].eid}`);
             _endeavor_meta.push(
                     {
                         eid: _endeavors[eIdx].eid,
                         story_meta_list: []
                     }
                 )
-            console.log(`buildEndeavorMeta(-): _endeavor_meta[${eIdx}].eid: ${_endeavor_meta[eIdx].eid}`);
+            // console.log(`buildEndeavorMeta(-): _endeavor_meta[${eIdx}].eid: ${_endeavor_meta[eIdx].eid}`);
             let sprint_full = false;
             for ( let sIdx=0 ; sIdx < endeavors[eIdx].story_list.length ; sIdx++){
                 let sprint_ended = false;
@@ -87,7 +88,7 @@ export class TbProvider extends Component<any, ProviderStateI>{
                 let _storyCandidateCount = Math.min(_currentStory.taskList.length, _currentStory.maxTasks);
                 [_sprintCapacityLeft, _contribution ] = TbProvider.determineSprintContribution(
                                                                         _sprintCapacityLeft, _storyCandidateCount);
-                console.log(`\t currentStory.name: ${_currentStory.name} .sid: ${_currentStory.sid} `);
+                // console.log(`\t currentStory.name: ${_currentStory.name} .sid: ${_currentStory.sid} `);
                 if (!sprint_full) {
                     if (!sprint_ended) {
                         if (_sprintCapacityLeft <= 0) {
@@ -104,8 +105,8 @@ export class TbProvider extends Component<any, ProviderStateI>{
                     sprint_end: sprint_ended
                 }
                 _endeavor_meta[eIdx].story_meta_list.push(_storySprint);
-                console.log(`\t\t Pushed meta for ${_currentStory.sid} to _endeavor_meta[eIdx].story_display, which now has length` +
-                            `${_endeavor_meta[eIdx].story_meta_list.length}: ${JSON.stringify(_storySprint)}`)
+                // console.log(`\t\t Pushed meta for ${_currentStory.sid} to _endeavor_meta[eIdx].story_display, which now has length` +
+                //             `${_endeavor_meta[eIdx].story_meta_list.length}: ${JSON.stringify(_storySprint)}`)
             }
 
         }
@@ -113,8 +114,7 @@ export class TbProvider extends Component<any, ProviderStateI>{
     }
 
     handleChangeSprintMaxTasks = (delta: number) => {
-        console.log("Got a click to change SprintMaxTask", delta);
-        // todo call buildEndeavorMeta(-) here and add the _endeavor_meta to state.
+        console.log("Got a click to change SprintMaxTask by:", delta);
         this.setState(
             prevState  => {
                 return (
@@ -124,6 +124,35 @@ export class TbProvider extends Component<any, ProviderStateI>{
         )
     }
 
+    handleChangeStoryMaxTasks = (eidx: number, sidx: number, delta: number) => {
+        console.log(`Got a click to change maxTasks in story by ${delta} for eidx,sidx: ${eidx},${sidx}`);
+        let newMax = this.state.endeavors[eidx].story_list[sidx].maxTasks + delta
+        // This could have been done with IDs instead of indecies:
+        // https://stackoverflow.com/questions/49477547/setstate-of-an-array-of-objects-in-react
+        this.setState(
+            prevState => {
+                const newState = Object.assign({}, prevState);
+                newState.endeavors[eidx].story_list[sidx].maxTasks = newMax
+                return (newState)
+            }
+        )
+    }
+
+
+
+    // handleChangeStoryMaxTasks = (eidx: number, sidx: number, delta: number) => {
+    //     console.log(`Got a click to change maxTasks in story by ${delta} for eidx,sidx: ${eidx},${sidx}`);
+    //     let newMax = this.state.endeavors[eidx].story_list[sidx].maxTasks + delta
+    //     // todo revisit this code to perhaps simply return the new property for state.  bit of a mess.
+    //     this.setState(
+    //         prevState => {
+    //             const newState = Object.assign({}, prevState);
+    //             endeavors[eidx].story_list[sidx].maxTasks = newMax
+    //             return (newState)
+    //         }
+    //     )
+    // }
+    //
     static getDerivedStateFromProps(nextProps: any, existingState: ProviderStateI) {
 
         console.log("React has called the lifecycle method TbProvider.getDerivedStateFromProps(-)")
@@ -141,6 +170,7 @@ export class TbProvider extends Component<any, ProviderStateI>{
                 endeavor_meta: this.state.endeavor_meta,
                 actions: {
                     changeSprintMax: this.handleChangeSprintMaxTasks,
+                    changeStoryMax: this.handleChangeStoryMaxTasks
                 }
         }}>
                 {this.props.children}
@@ -156,10 +186,14 @@ const defaultContext: ContextI =   {
     endeavors: emptyEndeavor,
     endeavor_meta: [],
     actions: {
-        changeSprintMax: (delta: number) => {
+        changeSprintMax: ( delta: number) => {
             console.log(
                 "actions.changeSprintMax is using a default, not an implementation in TbContext:" +
                 `${delta}`)},
+        changeStoryMax: (eidx: number, sidx: number, delta: number) => {
+            console.log(
+                "actions.changeStoryMax is using a default, not an implementation in TbContext:" +
+                `${delta}`)}
     }
 
 }
