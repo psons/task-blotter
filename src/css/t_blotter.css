@@ -1,7 +1,8 @@
 :root {
     font-size: .166in;   /*se the size of 1 rem about 16px*/
     --endeavor_task_color: #162882;
-    --sprint_task_color: #8f97bd;
+    --sprint_task_color: #bfc3d9;
+    /*--sprint_task_color: #8f97bd;*/
     --passive_color: lightgray;
     --prompt_background: #69618b;
     --prompt_color: #bfcde2;
@@ -15,6 +16,9 @@
 .not_displayed {
     display: none;
 }
+
+
+
 .top_bar {
     display: grid;
     grid-template: auto auto / 1fr 1fr 1fr ;
@@ -33,13 +37,6 @@
     font-size: .8rem;
     justify-content: center;
 }
-
-.setting_value {
-
-}
-
-
-
 
 .statistics_panel {
     grid-row-start: 1;
@@ -73,15 +70,6 @@
     /*background-color: white;*/
 }
 
-.setting_value {
-    display: inline-block;
-    /*float: right;*/
-    color: var(--endeavor_task_color);
-    border: solid var(--passive_color) .2rem;
-    /*background-color: white;*/
-}
-
-
 .screen_title {
     padding: .2rem;
     font-family: sans-serif;
@@ -91,15 +79,6 @@
     font-weight: bold;
     background-color: #fff;
 }
-
-/*.menu_bar {*/
-    /*!*grid-area: d;*!*/
-    /*display: flex;*/
-    /*flex-direction: row;*/
-    /*grid-row-start: 2;*/
-    /*grid-column-start: 2;*/
-    /*grid-column-end: 4;*/
-/*}*/
 
 .menu_choice {
     /*flex-grow: 1;*/
@@ -125,47 +104,100 @@
     z-index: 4;
 }
 
-
-/*.menu_choice::before {*/
-    /*content: "-|";*/
-/*}*/
-
-/*.menu_choice::after {*/
-    /*content: "|-";*/
-/*}*/
-
-
 .task_grid {
     display: flex;
     flex-direction: row;
 }
 
+/* for text span inline with micro controls like incr*/
+.micro-inline {
+    display: inline;
+    padding: 0 .1rem 0 .1rem;
+    color: var(--endeavor_task_color);
+}
+
+/* for controls that are inlines with text having .micro-inline */
+.micro-control {
+    display: none;  /*use with-> .some_parent:hover micro-control {display: inline; } */
+    background-color: #bfc3d9;
+    /*background-color: var(--sprint_task_color);*/
+    /*background-color: var(--prompt_background);*/
+    font-family: "Andale Mono";
+    font-weight: bolder;
+    font-size: .7rem;
+    position: relative;
+    bottom: .2em;           /* position: and bottom: are used to hike the control up
+                               because it is not as tall as the text it is inlined with.
+                               */
+    /*margin-bottom: .2rem;*/
+    /*vertical-align: center;*/
+    horiz-align: center;
+    margin: 0 .2rem 0 .2rem;
+    padding: 0 2px 0 2px;
+    border-style: solid;
+    border-width: .7px;
+    border-width: .7px;
+    /*border-style: outset;*/
+    border-color: #7078a9;
+    color: #262a40;
+    /*border-color: var(--passive_color);*/
+    border-image: initial;
+    border-radius: 30%;
+}
+
 .endeavor_head_bar {
-    /*border: solid .15rem red  ;*/
-    height-min: 3rem;
+    /*height-min: 3rem;*/
+    display: block;
+    box-sizing: content-box;
+    height: 3.3rem;      /* changes on hover See below.*/
+    width: calc(100% - .4rem);  /* 100% - both margins*/
     overflow: hidden;
     background-color: var(--endeavor_task_color);
     color: white;
-    /*border: solid white .1rem;*/
-    margin: .2rem 0 .2rem 0;
+    margin: .1rem .1rem .1rem .1rem;
+
+    /*font-size: .7rem;*/
+    padding: .2rem .1rem .13rem .1rem;
+    line-height: 1.1;   /*  forces wrapping text to be hidden over
+                            flow below the fixed height.*/
+    /*color: var(--passive_color);*/
 }
 
-.endeavor_head_bar:hover .endeavor_name{
-    padding: .5rem;
+.endeavor_head_bar:hover .micro-control {display: inline; }
+.endeavor_head_bar:hover .micro-inline {display: inline; }
+.endeavor_head_bar>.incremetable {
+    /*display: none;*/
+    background-color: white;
+    margin: auto .3rem auto auto;
+}
+
+/* same as micro-inline */
+.endeavor_head_bar:hover>.incremetable {
+    /*display: inline;*/
+    color: var(--endeavor_task_color);
+
+}
+
+
+.endeavor_head_bar:hover {
+    box-sizing: content-box;
     font-size: 1.1rem;
     font-weight: normal;
+    line-height: normal;
+    width: calc(100% - 1.2rem);
     height: auto;
-    overflow: visible;
+    /*overflow: visible;*/
+    padding: .5rem;
 }
 
 .endeavor_head_bar_new {
     border: solid .15rem red  ;
     /*margin: auto;*/
     height: 3rem;
-    padding: 0; /* 1rem top  manually vert center content */
+    padding: 0; /* 1rem top manually vert center content */
     color: var(--prompt_color);
     /*border: solid white .1rem;*/
-    background-color: var(--prompt_color);
+    /*background-color: var(--prompt_color);*/
     margin: .2rem 0 .2rem 0;
 }
 
@@ -181,27 +213,22 @@
     font-style: italic;
 }
 
-
 .endeavor_tasks_label {display: none }
 
 .endeavor_name {
-    height: 3rem;
+    /*min-height: 3rem;*/
+    height: 2.4rem;
     padding: 0 .5rem 0 .5rem;
     font-family: sans-serif;
     font-size: 1rem;
     font-weight: bold;
 }
 
-
-
-
-.endeavor_max_tasks_value {
+.endeavor_max_stories_value {
     float: right;
-    display: inline;
     display: inline;
     /*color: #162882;*/
     color: var(--endeavor_task_color);
-    /*border: solid .12rem var(--endeavor_task_color);*/
     background-color: white;
     padding: .1rem;
     font-size: 2rem;
@@ -245,15 +272,6 @@
     padding: .2rem;
 }
 
-
-.story_head_bar:hover .story_name {
-    padding: .5rem;
-    font-size: 1.1rem;
-    font-weight: normal;
-    height: auto;
-    overflow: visible;
-}
-
 .story_name {
     height: 3rem;
     overflow: hidden;
@@ -262,8 +280,6 @@
     font-size: 1rem;
     font-weight: normal;
 }
-
-
 
 .story_max_tasks_value {
     float: right;
@@ -292,31 +308,55 @@
     color: var(--endeavor_task_color);
 }
 
-
+/* The box for the separators */
 .sep {
-    box-sizing: content-box;
+    box-sizing: content-box;   /* works with margin to center horizontally */
     width: calc(100% - 3rem);  /* 100% - 2 * margin */
+    height: 3rem;
     font-family: var(--font_fam_setting_display);
     padding: 0;
     display: inline-block;
     background-color: lightgray;
     font-size: 1rem;
     overflow: hidden;
-    /*margin: 0 ;*/
     margin: 1px var(--sep_h_margin) 1px var(--sep_h_margin) ;
 }
 
+/*
+The button height that is inlined with the span elements in sep_story is:
+    font-size: .7rem + 3px*2 padding + .7px*2 border
+    ~= .7rem + 7.5px
+*/
 .sep_story {
-    height: 4px;
-    color: var(--passive_color);
-}
-.sep_sprint_end {
-    border: solid lightslategrey 2px;
-    height: 4px;
-    color: var(--passive_color);
-    border-radius: 3px;
+    height: .8rem;      /* changes on hover See below.*/
+    font-size: .7rem;
+    padding: .1rem .5rem .2rem .5rem;
+    line-height: 1.3;   /*  forces wrapping text to be hidden over
+                            flow below the fixed height.*/
+    /*color: var(--passive_color);*/
+    color: var(--endeavor_task_color);
 }
 
+
+.sep_story>.incremetable {
+    display: none;
+    margin: auto .3rem auto auto;
+}
+
+/* same as micro-inline */
+.sep_story:hover>.incremetable {
+    display: inline;
+    /*display: inline-block;*/
+}
+
+/*'not' in a selector: https://stackoverflow.com/questions/30835168/*/
+/*Just for debugging when the incremetable is visible.*/
+/*.sep_story:not(hover)>.incremetable .micro-inline {*/
+/*    position: relative;*/
+/*    bottom: .18em;           !* position: and bottom: are used to hike the control up*/
+/*                               because it is not as tall as the text it is inlined with.*/
+/*                               *!*/
+/*}*/
 
 .sep_story:hover {
     box-sizing: content-box;
@@ -326,10 +366,17 @@
     background-color: white;
     color: #162882;
     font-size: 1.1rem;
+    line-height: normal;
     height: auto;
     padding: 0 .5rem 0 .5rem;
  }
 
+.sep_sprint_end {
+    border: solid lightslategrey 2px;
+    height: 4px;
+    color: var(--passive_color);
+    border-radius: 3px;
+}
 
 .sep_sprint_end:hover {
     border: solid var(--endeavor_task_color) 2px;
@@ -357,6 +404,7 @@
 
 .task {
     font-family: var(--font_fam_setting_display);
+    margin: .4rem auto .4rem auto;
 }
 
 .task_status {
@@ -369,6 +417,8 @@
 
 .task_title {
     display: inline;
+    margin: 4rem 0 .3rem 0;
+
 }
 
 .task_detail {

@@ -1,6 +1,7 @@
 import React from "react";
 import {EndeavorT, EndeavorSprintMetaT, StoryT, StorySprintMetaT} from "../types/endeavors";
 import Story from "./Story"
+import {TbContext} from "./context/TbContext";
 
 interface EndeavorCT {
     eidx: number;
@@ -11,10 +12,14 @@ interface EndeavorCT {
 
 class Endeavor extends React.Component<EndeavorCT, any> {
 
+    static contextType = TbContext;
+    context!: React.ContextType<typeof TbContext>;
+
     buildRenderStories(stories: StoryT[], story_displays: StorySprintMetaT[], is_top: boolean) {
 
         let _renderStories: JSX.Element[] = [];
-        for ( let sIdx=0 ; sIdx < stories.length ; sIdx++) {
+        // while ... && sIdx <= this.context.endeavors[sIdx].maxStories
+        for ( let sIdx=0 ; sIdx < stories.length  ; sIdx++) {
             // console.log(`Endeavor in_sprint story: ${stories[sIdx].name}`)
             _renderStories.push(
                 <Story eidx={this.props.eidx} sidx={sIdx} story_t={stories[sIdx]} story_meta={story_displays[sIdx]}
@@ -35,9 +40,17 @@ class Endeavor extends React.Component<EndeavorCT, any> {
             // <div className="endeavor e1_area">
             <div className={"endeavor " + this.props.grid_area}>
                 <div className="endeavor_head_bar">
-                    <div className="endeavor_max_tasks_value">{maxStories}</div>
-                    <p className="endeavor_name">{name}</p>
-                    <p className="endeavor_tasks_label">Endeavor Tasks</p>
+                        <span className="incremetable">
+                            <button className="micro-control" onClick={() => this.context.actions.changeEndeavorMax(
+                                this.props.eidx,
+                                -1)}> - </button>
+
+                            <span className="micro-inline">{maxStories}</span>
+                            <button className="micro-control" onClick={() => this.context.actions.changeEndeavorMax(
+                                this.props.eidx, 1)}> + </button>
+                        </span>
+                    {/*<div className="endeavor_max_stories_value">{maxStories}</div>*/}
+                    <span className="endeavor_name">{name}</span>
                 </div>
                 <div className="task_list tasks_list_endeavor_in_sprint">
                     {this.buildRenderStories(story_list, story_display_list, true)}

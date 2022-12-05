@@ -2,10 +2,6 @@ import React from "react"
 import {StorySprintMetaT, StoryT, TaskT} from "../types/endeavors";
 import Task, {TaskCT} from "./Task";
 import {TbContext} from "./context/TbContext";
-import {TbConsumer} from "./context/TbContext";
-import {endeavors} from "../testdata/test-endeavors";
-import {ContextI} from "./context/TbContext";
-import {ReactComponent} from "*.svg";
 
 // Story Component Type
 interface StoryCT {
@@ -14,8 +10,7 @@ interface StoryCT {
     story_t: StoryT;  // Story Data Type
     story_meta: StorySprintMetaT;
     is_top: boolean;
-    // going to need to add some data here to tell it how to conditionally
-    // style its tasks.
+
 }
 
 class Story extends React.Component<StoryCT, any> {
@@ -23,13 +18,10 @@ class Story extends React.Component<StoryCT, any> {
     // type checking error note relating to ts-ignore in render.:
     // https://github.com/microsoft/TypeScript/issues/49357
     // https://stackoverflow.com/questions/53575461/react-typescript-context-in-react-component-class
-
     static contextType = TbContext;
     context!: React.ContextType<typeof TbContext>;
 
-
     buildRenderTasks( some_tasks: TaskT[], is_sp_cand: boolean, sprint_end: boolean, num_t_contrib: number) {
-
         let _renderTasks: JSX.Element[] = [];
         let end_sep_rendered: boolean = false;
         let end_sep: JSX.Element = (<div key={0} className="sep sep_sprint_end">Tasks after this are beyond MaxTasks:</div>);
@@ -47,15 +39,9 @@ class Story extends React.Component<StoryCT, any> {
             _renderTasks.push(
                 <Task key={some_tasks[tIdx].tid} task_t={some_tasks[tIdx]} is_sprint_candidate={is_sp_cand}/>
             );
-            // if (sprint_end && ! end_sep_rendered) {
-            //     _renderTasks.push(end_sep);
-            // }
         }
         return _renderTasks;
     }
-
-
-
 
     render() {
         const {maxTasks, name, taskList} = this.props.story_t;
@@ -82,27 +68,24 @@ class Story extends React.Component<StoryCT, any> {
         // for the expanded array expression below in JSX.
         // let renderTasks: JSX.Element[];
         return (
-                <div>
-                    <div className={classNames}> {name} -
-                        {/*<TbConsumer>*/}
-                            {/*<React.Fragment>*/}
-                            {/*    see type checking issue note above }*/}
-                                <button className="" onClick={() => this.context.actions.changeStoryMax(
-                                    this.props.eidx,
-                                    this.props.sidx,
-                                    -1)}> - </button>
+                <React.Fragment>
+                    <div className={classNames}>
+                        <span className="incremetable">
+                            <button className="micro-control" onClick={() => this.context.actions.changeStoryMax(
+                                this.props.eidx,
+                                this.props.sidx,
+                                -1)}> - </button>
 
-                                <span className="setting_value">{maxTasks}</span>
-                                <button className="" onClick={() => this.context.actions.changeStoryMax(
-                                    this.props.eidx,
-                                    this.props.sidx
-                                    , 1)}> + </button>
-                            {/*</React.Fragment>*/}
-                        {/*</TbConsumer>*/}
-                        </div>
+                            <span className="micro-inline">{maxTasks}</span>
+                            <button className="micro-control" onClick={() => this.context.actions.changeStoryMax(
+                                this.props.eidx,
+                                this.props.sidx
+                                , 1)}> + </button>
+                        </span>
+                    <span>{name}</span>
+                    </div>
                     {this.buildRenderTasks( taskListSlice, is_sprint_candidate, sprint_end, num_tasks_contributed)}
-                </div>
-
+                </React.Fragment>
         );
     }
 }

@@ -16,6 +16,7 @@ interface ProviderStateI  {
 export interface ContextI extends ProviderStateI {
     actions: {
         changeSprintMax: (delta: number) => void;
+        changeEndeavorMax: (eidx: number, delta: number) => void;
         changeStoryMax: (eidx: number, sidx: number, delta: number) => void;
         // registerSprintContribution: (storyTasks: number) => number ;//updateCapacity
     }
@@ -124,6 +125,22 @@ export class TbProvider extends Component<any, ProviderStateI>{
         )
     }
 
+    handleChangeEndeavorMaxStories = (eidx: number, delta: number) => {
+        console.log(`Got a click to change maxStories in endeavor by ${delta} for eidx: ${eidx}`);
+        let newMax = this.state.endeavors[eidx].maxStories + delta
+        // This could have been done with IDs instead of indecies:
+        // https://stackoverflow.com/questions/49477547/setstate-of-an-array-of-objects-in-react
+        this.setState(
+            prevState => {
+                const newState = Object.assign({}, prevState);
+                newState.endeavors[eidx].maxStories = newMax
+                return (newState)
+            }
+        )
+    }
+
+
+
     handleChangeStoryMaxTasks = (eidx: number, sidx: number, delta: number) => {
         console.log(`Got a click to change maxTasks in story by ${delta} for eidx,sidx: ${eidx},${sidx}`);
         let newMax = this.state.endeavors[eidx].story_list[sidx].maxTasks + delta
@@ -138,21 +155,6 @@ export class TbProvider extends Component<any, ProviderStateI>{
         )
     }
 
-
-
-    // handleChangeStoryMaxTasks = (eidx: number, sidx: number, delta: number) => {
-    //     console.log(`Got a click to change maxTasks in story by ${delta} for eidx,sidx: ${eidx},${sidx}`);
-    //     let newMax = this.state.endeavors[eidx].story_list[sidx].maxTasks + delta
-    //     // todo revisit this code to perhaps simply return the new property for state.  bit of a mess.
-    //     this.setState(
-    //         prevState => {
-    //             const newState = Object.assign({}, prevState);
-    //             endeavors[eidx].story_list[sidx].maxTasks = newMax
-    //             return (newState)
-    //         }
-    //     )
-    // }
-    //
     static getDerivedStateFromProps(nextProps: any, existingState: ProviderStateI) {
 
         console.log("React has called the lifecycle method TbProvider.getDerivedStateFromProps(-)")
@@ -170,7 +172,9 @@ export class TbProvider extends Component<any, ProviderStateI>{
                 endeavor_meta: this.state.endeavor_meta,
                 actions: {
                     changeSprintMax: this.handleChangeSprintMaxTasks,
+                    changeEndeavorMax: this.handleChangeEndeavorMaxStories,
                     changeStoryMax: this.handleChangeStoryMaxTasks
+
                 }
         }}>
                 {this.props.children}
@@ -189,6 +193,10 @@ const defaultContext: ContextI =   {
         changeSprintMax: ( delta: number) => {
             console.log(
                 "actions.changeSprintMax is using a default, not an implementation in TbContext:" +
+                `${delta}`)},
+        changeEndeavorMax: (eidx: number, delta: number) => {
+            console.log(
+                "actions.changeEndeavorMax is using a default, not an implementation in TbContext:" +
                 `${delta}`)},
         changeStoryMax: (eidx: number, sidx: number, delta: number) => {
             console.log(

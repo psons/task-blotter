@@ -4,19 +4,19 @@ export const endeavors: EndeavorT[] =
     [
         {
         "_id": "c21f969b5f",
-        "name": "default",
+        "name": "Default / New Task Story.",
         "maxStories": 3,
         "eid": "c21f969b5f",
         "story_list": [
             {
                 "maxTasks": 3,
-                "name": "new task story",
+                "name": "new task story with a long name that wraps past first line in a separator",
                 "sid": "c21f969b5f.c9ec52c702",
                 "taskList": [
                     {
                         "status": "in_progress",
                         "title": "live in the moment",
-                        "detail": "Do the right thing for he moment now!",
+                        "detail": "Do the right thing for the moment now!",
                         "tid": "c21f969b5f.c9ec52c702.0eeac89fb5"
                     },
                     {
@@ -68,7 +68,7 @@ export const endeavors: EndeavorT[] =
     },
         {
             "_id": "c32f070b6f",
-            "name": "Be Excellent",
+            "name": "Be Excellent to each other my friends, for in the longrun it will all be righteous",
             "maxStories": 1,
             "eid": "c32f070b6f",
             "story_list": [
