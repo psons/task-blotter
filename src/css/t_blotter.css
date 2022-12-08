@@ -5,6 +5,7 @@
     /*--sprint_task_color: #8f97bd;*/
     --passive_color: lightgray;
     --prompt_background: #69618b;
+    --prompt_foreground: #7654A6FF;
     --prompt_color: #bfcde2;
     --sep_h_margin: 1.5rem;
     --font_fam_setting_display: sans-serif;
@@ -52,7 +53,18 @@
     /*border-radius: .4rem;*/
     /*margin: 0 .1rem 0 .1rem;*/
     margin: 0 ;
+    margin: 0 ;
 }
+
+.statistics_panel:hover .micro-control {display: inline; }
+.statistics_panel>.incremetable {
+    background-color: white;
+    margin: auto .3rem auto auto;
+}
+.statistics_panel:hover>.incremetable {
+    color: var(--endeavor_task_color);
+}
+
 
 .label_val_pair {
     margin: .1rem 0 .1rem 0;
@@ -85,7 +97,7 @@
     font-family: sans-serif;
     font-size: .8rem;
     text-align: center;
-    color: var(--sprint_task_color);
+    color: var(--prompt_foreground);
     background-color: var(--passive_color);
     /*border: solid var(--passive_color) .2rem;*/
     border: solid white .2rem;
@@ -120,6 +132,7 @@
 .micro-control {
     display: none;  /*use with-> .some_parent:hover micro-control {display: inline; } */
     background-color: #bfc3d9;
+    color: var(--prompt_foreground);
     /*background-color: var(--sprint_task_color);*/
     /*background-color: var(--prompt_background);*/
     font-family: "Andale Mono";
@@ -164,18 +177,12 @@
 }
 
 .endeavor_head_bar:hover .micro-control {display: inline; }
-.endeavor_head_bar:hover .micro-inline {display: inline; }
 .endeavor_head_bar>.incremetable {
-    /*display: none;*/
     background-color: white;
     margin: auto .3rem auto auto;
 }
-
-/* same as micro-inline */
 .endeavor_head_bar:hover>.incremetable {
-    /*display: inline;*/
     color: var(--endeavor_task_color);
-
 }
 
 
@@ -186,7 +193,7 @@
     line-height: normal;
     width: calc(100% - 1.2rem);
     height: auto;
-    /*overflow: visible;*/
+    /*overflow: visible;  not needed. no overflow since the box becomes big enough.*/
     padding: .5rem;
 }
 
@@ -337,26 +344,19 @@ The button height that is inlined with the span elements in sep_story is:
     color: var(--endeavor_task_color);
 }
 
-
+.sep_story:hover .micro-control {display: inline; }
 .sep_story>.incremetable {
-    display: none;
+    background-color: white;
     margin: auto .3rem auto auto;
 }
-
-/* same as micro-inline */
 .sep_story:hover>.incremetable {
-    display: inline;
-    /*display: inline-block;*/
+    /*display: inline;*/
+    color: var(--endeavor_task_color);
+
 }
 
 /*'not' in a selector: https://stackoverflow.com/questions/30835168/*/
-/*Just for debugging when the incremetable is visible.*/
-/*.sep_story:not(hover)>.incremetable .micro-inline {*/
-/*    position: relative;*/
-/*    bottom: .18em;           !* position: and bottom: are used to hike the control up*/
-/*                               because it is not as tall as the text it is inlined with.*/
-/*                               *!*/
-/*}*/
+/*.sep_story:not(hover)>.incremetable .micro-inline {}*/
 
 .sep_story:hover {
     box-sizing: content-box;
@@ -379,15 +379,22 @@ The button height that is inlined with the span elements in sep_story is:
 }
 
 .sep_sprint_end:hover {
+    /**/
+    box-sizing: content-box;
+    margin: 2px 2px 2px 2px;
+    width: calc(100% - 8px - 1rem) ;  /* 100% content box - 2 * (border + 2px)  - 2 * padding  */
+    /*line-height: normal;*/
+    /**/
     border: solid var(--endeavor_task_color) 2px;
     background-color: white;
-    font-size: 1.1rem;
+    font-size: .9rem;
+    font-style: italic;
+    font-weight: lighter;
     height: auto;
     color: var(--endeavor_task_color);
     margin: 0  ;
     padding: 0 .5rem 0 .5rem;
 }
-
 
 .task {
     display: block;

@@ -15,16 +15,35 @@ class Endeavor extends React.Component<EndeavorCT, any> {
     static contextType = TbContext;
     context!: React.ContextType<typeof TbContext>;
 
-    buildRenderStories(stories: StoryT[], story_displays: StorySprintMetaT[], is_top: boolean) {
-
+    /**
+     * Builds and returns the task list JSX elements to display for stories in this endeavor.
+     * Two cases are supported:
+     *      - is_in_sprint informs the Story component to renter its parts that are in sprint according to the metadata.
+     *      - else informs the Story component to renter its parts that are out of the sprint according to the metadata.
+     * @param stories the list of stories in this endeavor.
+     * @param story_displays the list of display metadata about stores in this Endeavor.
+     * @param is_in_sprint true if the task list to render is in sprint.
+     * @param maxStories is the number of stories endeavor is configured to contribute tasks into the sprint
+     */
+    buildRenderStories(
+        stories: StoryT[], story_displays: StorySprintMetaT[],
+        is_in_sprint: boolean, maxStories: number=-1)  {
         let _renderStories: JSX.Element[] = [];
-        // while ... && sIdx <= this.context.endeavors[sIdx].maxStories
         for ( let sIdx=0 ; sIdx < stories.length  ; sIdx++) {
             // console.log(`Endeavor in_sprint story: ${stories[sIdx].name}`)
-            _renderStories.push(
-                <Story eidx={this.props.eidx} sidx={sIdx} story_t={stories[sIdx]} story_meta={story_displays[sIdx]}
-                       is_top={is_top} key={stories[sIdx].sid}></Story>
-            )
+            if (is_in_sprint ) {
+                // in the sprint, push only stories less than maxStories
+                if (sIdx <maxStories) {
+                    _renderStories.push(
+                        <Story eidx={this.props.eidx} sidx={sIdx} story_t={stories[sIdx]} story_meta={story_displays[sIdx]}
+                               is_top={is_in_sprint} key={stories[sIdx].sid}></Story>)
+                }
+            } else {
+                _renderStories.push(
+                    // below the sprint, push everything
+                    <Story eidx={this.props.eidx} sidx={sIdx} story_t={stories[sIdx]} story_meta={story_displays[sIdx]}
+                           is_top={is_in_sprint} key={stories[sIdx].sid}></Story>)
+            }
         }
         return _renderStories;
     }
@@ -53,7 +72,9 @@ class Endeavor extends React.Component<EndeavorCT, any> {
                     <span className="endeavor_name">{name}</span>
                 </div>
                 <div className="task_list tasks_list_endeavor_in_sprint">
-                    {this.buildRenderStories(story_list, story_display_list, true)}
+                    {this.buildRenderStories(story_list,
+                        story_display_list, true,
+                        this.context.endeavors[this.props.eidx].maxStories)}
                 </div>
                 <div className="task_list tasks_list_endeavor_out_of_sprint">
                     {this.buildRenderStories(story_list, story_display_list, false)}

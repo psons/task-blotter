@@ -69,6 +69,8 @@ export class TbProvider extends Component<any, ProviderStateI>{
         }
     }
 
+    /** sets metadata in a parallel structure to the Endeavors with info to render
+     * stories and tasks correctly based on sprint inclusion. */
     static buildEndeavorMeta(_sprint_max_tasks: number, _endeavors: EndeavorT[]){
         let _endeavor_meta: EndeavorSprintMetaT[] = [];
         let _sprintCapacityLeft = _sprint_max_tasks;
@@ -86,7 +88,13 @@ export class TbProvider extends Component<any, ProviderStateI>{
             for ( let sIdx=0 ; sIdx < endeavors[eIdx].story_list.length ; sIdx++){
                 let sprint_ended = false;
                 let _currentStory = endeavors[eIdx].story_list[sIdx];
-                let _storyCandidateCount = Math.min(_currentStory.taskList.length, _currentStory.maxTasks);
+                let _storyCandidateCount = 0;
+                if (sIdx < endeavors[eIdx].maxStories ) {
+                    /** the Endeavor eIdx is configured to include this story,
+                     * so it may contribute some tasks to the sprint.
+                     */
+                    _storyCandidateCount = Math.min(_currentStory.taskList.length, _currentStory.maxTasks);
+                }
                 [_sprintCapacityLeft, _contribution ] = TbProvider.determineSprintContribution(
                                                                         _sprintCapacityLeft, _storyCandidateCount);
                 // console.log(`\t currentStory.name: ${_currentStory.name} .sid: ${_currentStory.sid} `);
@@ -127,7 +135,9 @@ export class TbProvider extends Component<any, ProviderStateI>{
 
     handleChangeEndeavorMaxStories = (eidx: number, delta: number) => {
         console.log(`Got a click to change maxStories in endeavor by ${delta} for eidx: ${eidx}`);
-        let newMax = this.state.endeavors[eidx].maxStories + delta
+        let stories = this.state.endeavors[eidx].story_list.length
+        let newMax = Math.min(this.state.endeavors[eidx].maxStories + delta, stories);
+        newMax = Math.max(newMax, 0);
         // This could have been done with IDs instead of indecies:
         // https://stackoverflow.com/questions/49477547/setstate-of-an-array-of-objects-in-react
         this.setState(
@@ -143,7 +153,10 @@ export class TbProvider extends Component<any, ProviderStateI>{
 
     handleChangeStoryMaxTasks = (eidx: number, sidx: number, delta: number) => {
         console.log(`Got a click to change maxTasks in story by ${delta} for eidx,sidx: ${eidx},${sidx}`);
-        let newMax = this.state.endeavors[eidx].story_list[sidx].maxTasks + delta
+
+        let tasks = this.state.endeavors[eidx].story_list[sidx].taskList.length;
+        let newMax = Math.min(this.state.endeavors[eidx].story_list[sidx].maxTasks + delta, tasks);
+        newMax = Math.max(newMax, 0);
         // This could have been done with IDs instead of indecies:
         // https://stackoverflow.com/questions/49477547/setstate-of-an-array-of-objects-in-react
         this.setState(

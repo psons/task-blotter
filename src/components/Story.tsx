@@ -24,14 +24,15 @@ class Story extends React.Component<StoryCT, any> {
     buildRenderTasks( some_tasks: TaskT[], is_sp_cand: boolean, sprint_end: boolean, num_t_contrib: number) {
         let _renderTasks: JSX.Element[] = [];
         let end_sep_rendered: boolean = false;
-        let end_sep: JSX.Element = (<div key={0} className="sep sep_sprint_end">Tasks after this are beyond MaxTasks:</div>);
+        let end_sep: JSX.Element = (<div key={0} className="sep sep_sprint_end">
+            Tasks after this are beyond sprint_max_tasks: (out of sprint)</div>);
         for ( let tIdx=0 ; tIdx < some_tasks.length ; tIdx++) {
             // console.log(`buildRenderTasks(-) task: ${some_tasks[tIdx].title}`)
             if (   sprint_end  // first iteration beyond sprint capacity
                 && tIdx === num_t_contrib
                 && is_sp_cand
             ) {
-                _renderTasks.push(end_sep);
+                _renderTasks.push(end_sep); // Push the sprint end separator into the list of elements to render()
                 is_sp_cand = false;
             } else if ( tIdx >= num_t_contrib) {
                 is_sp_cand = false;  // beyond sprint capacity
@@ -60,9 +61,9 @@ class Story extends React.Component<StoryCT, any> {
         // console.log(`taskListSlice map .title-: ${taskListSlice.map( task => task.title)}`)
         // suppress display of separator for empty task lists.
         let classNames="sep sep_story "
-        if (taskListSlice.length < 1){
-            classNames= "not_displayed";
-        }
+        // if (taskListSlice.length < 1){
+        //     classNames= "not_displayed";
+        // }
 
         // Leaving renderTasks code commented, as example of the type that works
         // for the expanded array expression below in JSX.
