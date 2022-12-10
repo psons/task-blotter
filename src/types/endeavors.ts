@@ -1,4 +1,6 @@
-
+/**
+ * Copyright 2022 Paul Sons all rights reserved.
+ */
 
 interface UserDomainT {
     name: string;               // a name of a "Domain" of effort and Endeavors.

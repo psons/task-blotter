@@ -1,15 +1,21 @@
+/**
+ * Copyright 2022 Paul Sons all rights reserved.
+ */
+
+
 :root {
     font-size: .166in;   /*se the size of 1 rem about 16px*/
     --endeavor_task_color: #162882;
     --sprint_task_color: #bfc3d9;
     /*--sprint_task_color: #8f97bd;*/
     --passive_color: lightgray;
-    --prompt_background: #69618b;
-    --prompt_foreground: #7654A6FF;
+    --user_interact_background_color: #69618b;
+    --user_interact_foreground_color: #7654A6FF;
     --prompt_color: #bfcde2;
     --sep_h_margin: 1.5rem;
     --font_fam_setting_display: sans-serif;
-    --font_fam_setting_edit: Georgia;
+    /*--font_fam_setting_changable: Georgia;*/
+    --font_fam_setting_changable: Garamond;
     /*--input_font: */
 
 }
@@ -56,7 +62,10 @@
     margin: 0 ;
 }
 
-.statistics_panel:hover .micro-control {display: inline; }
+.statistics_panel:hover .micro-control {
+    display: inline;
+    color: var(--user_interact_foreground_color);
+}
 .statistics_panel>.incremetable {
     background-color: white;
     margin: auto .3rem auto auto;
@@ -97,7 +106,7 @@
     font-family: sans-serif;
     font-size: .8rem;
     text-align: center;
-    color: var(--prompt_foreground);
+    color: var(--user_interact_foreground_color);
     background-color: var(--passive_color);
     /*border: solid var(--passive_color) .2rem;*/
     border: solid white .2rem;
@@ -125,14 +134,18 @@
 .micro-inline {
     display: inline;
     padding: 0 .1rem 0 .1rem;
-    color: var(--endeavor_task_color);
+    font: normal 100% var(--font_fam_setting_changable);
+    /*font-family: var(--font_fam_setting_changable);*/
+    color: var(--user_interact_foreground_color); /* leads you interact, but
+    but by the time you hover and expose the control, it is actually
+    the buttons you interact with.   */
 }
 
 /* for controls that are inlines with text having .micro-inline */
 .micro-control {
     display: none;  /*use with-> .some_parent:hover micro-control {display: inline; } */
     background-color: #bfc3d9;
-    color: var(--prompt_foreground);
+    color: var(--user_interact_foreground_color);
     /*background-color: var(--sprint_task_color);*/
     /*background-color: var(--prompt_background);*/
     font-family: "Andale Mono";
@@ -149,9 +162,9 @@
     padding: 0 2px 0 2px;
     border-style: solid;
     border-width: .7px;
-    border-width: .7px;
     /*border-style: outset;*/
-    border-color: #7078a9;
+    /*border-color: #7078a9;*/
+    border-color: var(--user_interact_foreground_color);
     color: #262a40;
     /*border-color: var(--passive_color);*/
     border-image: initial;
@@ -176,12 +189,15 @@
     /*color: var(--passive_color);*/
 }
 
-.endeavor_head_bar:hover .micro-control {display: inline; }
+.endeavor_head_bar:hover .micro-control {
+    display: inline;
+    color: var(--user_interact_foreground_color);
+}
 .endeavor_head_bar>.incremetable {
     background-color: white;
     margin: auto .3rem auto auto;
 }
-.endeavor_head_bar:hover>.incremetable {
+.endeavor_head_bar:hover .micro-inline {
     color: var(--endeavor_task_color);
 }
 
@@ -210,7 +226,7 @@
 
 .endeavor_name_prompt {
     /*height: 3rem;*/
-    background-color: var(--prompt_background);
+    background-color: var(--user_interact_background_color);
     border: solid .5rem var(--prompt_color);
     /*overflow: hidden;*/
     padding: .5rem;
@@ -239,7 +255,7 @@
     background-color: white;
     padding: .1rem;
     font-size: 2rem;
-    font-family: var(--font_fam_setting_edit);
+    font-family: var(--font_fam_setting_changable);
 
 }
 
@@ -288,6 +304,7 @@
     font-weight: normal;
 }
 
+/*not currently used*/
 .story_max_tasks_value {
     float: right;
     display: inline;
@@ -297,7 +314,7 @@
     background-color: white;
     padding: .1rem;
     font-size: 2rem;
-    font-family: var(--font_fam_setting_edit);
+    font-family: var(--font_fam_setting_changable);
 }
 
 
@@ -344,16 +361,21 @@ The button height that is inlined with the span elements in sep_story is:
     color: var(--endeavor_task_color);
 }
 
-.sep_story:hover .micro-control {display: inline; }
+.sep_story:hover .micro-control {
+    display: inline;
+    color: var(--user_interact_foreground_color);
+}
 .sep_story>.incremetable {
     background-color: white;
     margin: auto .3rem auto auto;
 }
-.sep_story:hover>.incremetable {
-    /*display: inline;*/
+.sep_story:hover .micro-inline {
     color: var(--endeavor_task_color);
-
 }
+/*.sep_story:hover>.incremetable {*/
+/*    !*display: inline;*!*/
+/*    color: var(--endeavor_task_color);*/
+/*}*/
 
 /*'not' in a selector: https://stackoverflow.com/questions/30835168/*/
 /*.sep_story:not(hover)>.incremetable .micro-inline {}*/

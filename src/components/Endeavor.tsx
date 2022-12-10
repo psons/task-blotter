@@ -1,3 +1,7 @@
+/**
+ * Copyright 2022 Paul Sons all rights reserved.
+ */
+
 import React from "react";
 import {EndeavorT, EndeavorSprintMetaT, StoryT, StorySprintMetaT} from "../types/endeavors";
 import Story from "./Story"
@@ -10,6 +14,10 @@ interface EndeavorCT {
     grid_area: string;
 }
 
+/**
+ * Display component corresponding to the top level of the Endeavor, Story, and Task
+ * data hierarchy.
+ */
 class Endeavor extends React.Component<EndeavorCT, any> {
 
     static contextType = TbContext;
@@ -18,8 +26,10 @@ class Endeavor extends React.Component<EndeavorCT, any> {
     /**
      * Builds and returns the task list JSX elements to display for stories in this endeavor.
      * Two cases are supported:
-     *      - is_in_sprint informs the Story component to renter its parts that are in sprint according to the metadata.
-     *      - else informs the Story component to renter its parts that are out of the sprint according to the metadata.
+     *      - is_in_sprint informs the Story component to renter its parts that are
+     *      in sprint according to the metadata.
+     *      - else informs the Story component to renter its parts that are
+     *      out of the sprint according to the metadata.
      * @param stories the list of stories in this endeavor.
      * @param story_displays the list of display metadata about stores in this Endeavor.
      * @param is_in_sprint true if the task list to render is in sprint.
@@ -33,21 +43,33 @@ class Endeavor extends React.Component<EndeavorCT, any> {
             // console.log(`Endeavor in_sprint story: ${stories[sIdx].name}`)
             if (is_in_sprint ) {
                 // in the sprint, push only stories less than maxStories
-                if (sIdx <maxStories) {
+                if (sIdx < maxStories) {
                     _renderStories.push(
-                        <Story eidx={this.props.eidx} sidx={sIdx} story_t={stories[sIdx]} story_meta={story_displays[sIdx]}
+                        <Story eidx={this.props.eidx} sidx={sIdx}
+                               story_t={stories[sIdx]} story_meta={story_displays[sIdx]}
                                is_top={is_in_sprint} key={stories[sIdx].sid}></Story>)
                 }
             } else {
                 _renderStories.push(
                     // below the sprint, push everything
-                    <Story eidx={this.props.eidx} sidx={sIdx} story_t={stories[sIdx]} story_meta={story_displays[sIdx]}
+                    <Story eidx={this.props.eidx} sidx={sIdx}
+                           story_t={stories[sIdx]} story_meta={story_displays[sIdx]}
                            is_top={is_in_sprint} key={stories[sIdx].sid}></Story>)
             }
         }
         return _renderStories;
     }
 
+    /**
+     * returns JSX to render Endeavor with major parts:
+     *  - header bar with control to set number of stories
+     *  - list of Story components included in sprint.
+     *  - list of Story components not included in sprint.
+     *
+     * uses:
+     *  - real data via props.endeavor_t
+     *  - metdata for rendering logic via props.endeavor_meta
+     */
     render () {
         // {endeavor_t, grid_area} = this.props.;
         const {_id, name, maxStories, eid, story_list} = this.props.endeavor_t;
@@ -56,16 +78,16 @@ class Endeavor extends React.Component<EndeavorCT, any> {
 
         return (
             // going to need to rotate through the grid areas: e1_area, e2_area, e3_area
-            // <div className="endeavor e1_area">
             <div className={"endeavor " + this.props.grid_area}>
                 <div className="endeavor_head_bar">
                         <span className="incremetable">
-                            <button className="micro-control" onClick={() => this.context.actions.changeEndeavorMax(
-                                this.props.eidx,
-                                -1)}> - </button>
+                            <button className="micro-control"
+                                onClick={() => this.context.actions.changeEndeavorMax(
+                                this.props.eidx, -1)}> - </button>
 
                             <span className="micro-inline">{maxStories}</span>
-                            <button className="micro-control" onClick={() => this.context.actions.changeEndeavorMax(
+                            <button className="micro-control"
+                                onClick={() => this.context.actions.changeEndeavorMax(
                                 this.props.eidx, 1)}> + </button>
                         </span>
                     {/*<div className="endeavor_max_stories_value">{maxStories}</div>*/}

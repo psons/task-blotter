@@ -1,3 +1,7 @@
+/**
+ * Copyright 2022 Paul Sons all rights reserved.
+ */
+
 import React from "react"
 import {StorySprintMetaT, StoryT, TaskT} from "../types/endeavors";
 import Task, {TaskCT} from "./Task";
@@ -13,6 +17,11 @@ interface StoryCT {
 
 }
 
+/**
+ * Uses actions methods in the context to manipulate story maxTasks.
+ *
+ */
+
 class Story extends React.Component<StoryCT, any> {
 
     // type checking error note relating to ts-ignore in render.:
@@ -23,7 +32,6 @@ class Story extends React.Component<StoryCT, any> {
 
     buildRenderTasks( some_tasks: TaskT[], is_sp_cand: boolean, sprint_end: boolean, num_t_contrib: number) {
         let _renderTasks: JSX.Element[] = [];
-        let end_sep_rendered: boolean = false;
         let end_sep: JSX.Element = (<div key={0} className="sep sep_sprint_end">
             Tasks after this are beyond sprint_max_tasks: (out of sprint)</div>);
         for ( let tIdx=0 ; tIdx < some_tasks.length ; tIdx++) {
@@ -44,9 +52,15 @@ class Story extends React.Component<StoryCT, any> {
         return _renderTasks;
     }
 
+    /**
+     * Returns JSX to render Story with major parts:
+     * - header bar with control to set number of tasks te story should contribute to the sprinrt
+     *  - list of Task components with style indicating if each is in or out of the sprint
+     */
     render() {
         const {maxTasks, name, taskList} = this.props.story_t;
         const {sid, num_tasks_contributed, sprint_end} = this.props.story_meta
+        let controlClassNames="incremetable ";
         // console.log(`Story.render() :: name: ${name}, maxTasks: ${maxTasks}`)
         // console.log(`\t :: sid: ${sid}, num_tasks_contributed: ${num_tasks_contributed} sprint_end: ${sprint_end}`)
         let taskListSlice: TaskT[];
@@ -57,21 +71,14 @@ class Story extends React.Component<StoryCT, any> {
         } else {
             // bottom of taskList: not in the sprint
             taskListSlice = taskList.slice(maxTasks);
+            controlClassNames += "not_displayed ";
+
         }
         // console.log(`taskListSlice map .title-: ${taskListSlice.map( task => task.title)}`)
-        // suppress display of separator for empty task lists.
-        let classNames="sep sep_story "
-        // if (taskListSlice.length < 1){
-        //     classNames= "not_displayed";
-        // }
-
-        // Leaving renderTasks code commented, as example of the type that works
-        // for the expanded array expression below in JSX.
-        // let renderTasks: JSX.Element[];
         return (
                 <React.Fragment>
-                    <div className={classNames}>
-                        <span className="incremetable">
+                    <div className="sep sep_story ">
+                        <span className={controlClassNames}>
                             <button className="micro-control" onClick={() => this.context.actions.changeStoryMax(
                                 this.props.eidx,
                                 this.props.sidx,

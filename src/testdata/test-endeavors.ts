@@ -1,3 +1,7 @@
+/**
+ * Copyright 2022 Paul Sons all rights reserved.
+ */
+
 import {EndeavorT} from "../types/endeavors";
 
 export const endeavors: EndeavorT[] =

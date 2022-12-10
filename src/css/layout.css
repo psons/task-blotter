@@ -1,3 +1,7 @@
+/**
+ * Copyright 2022 Paul Sons all rights reserved.
+ */
+
 .app {
     display: grid;
     border: solid var(--endeavor_task_color) 1px;

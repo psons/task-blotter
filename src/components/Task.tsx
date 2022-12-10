@@ -1,3 +1,7 @@
+/**
+ * Copyright 2022 Paul Sons all rights reserved.
+ */
+
 import React, {FunctionComponent} from "react";
 import {TaskT} from "../types/endeavors"
 import {Status} from "./Status";
@@ -8,7 +12,12 @@ export interface TaskCT {
     is_sprint_candidate: boolean;
 }
 
-// const Task = ({status, title, detail, tid}: TaskT) => (
+/**
+ *
+ * @param task_t  TaskT data destructured from props.
+ * @param is_sprint_candidate boolean to set css style based on sprint status.
+ * @constructor
+ */
 const Task: FunctionComponent<TaskCT> = ({task_t, is_sprint_candidate}: TaskCT) => {
     let {status, title, detail, tid} = task_t;
     console.log()

@@ -1,12 +1,14 @@
+/**
+ * Copyright 2022 Paul Sons all rights reserved.
+ */
+
 import React from "react";
-import {StatsT} from "../types/endeavors"
 import {TbConsumer} from "./context/TbContext";
 
-
-// interface StatsPanelCT {
-//     stats_t: StatsT;
-// }
-
+/**
+ * Allows the user to chang the number of tasks to pull into the sprint.
+ * @constructor
+ */
 const StatPanel = () => {
     return (
         <TbConsumer>
